@@ -1,0 +1,57 @@
+table {
+    width: 50%;
+}
+
+
+.example-container {
+    height: 400px;
+    width: 550px;
+    max-width: 100%;
+    overflow: auto;
+  }
+  
+  table {
+    width: 800px;
+  }
+  
+  td.mat-column-star {
+    width: 100%;
+    padding-right: 8px;
+  }
+  
+  th.mat-column-position, td.mat-column-position {
+    padding-left: 8px;
+  }
+  
+  .mat-table-sticky:first-child {
+    border-right: 1px solid #e0e0e0;
+  }
+  
+  .mat-table-sticky:last-child {
+    border-left: 1px solid #e0e0e0;
+  }
+
+
+   mmat-form-field {
+    margin-left:20px ;
+  } 
+
+
+
+
+
+mat-card{
+
+    width: auto;
+  
+}
+  /* .parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  } */
+
+  /* ::ng-deep .mat-form-field.mat-form-field-should-float {
+    padding: top 14px;
+} */

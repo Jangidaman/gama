@@ -1,0 +1,161 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 justify-content-start">
+            <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5,10,20, 50, 100]" [length]="100" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-9 justify-content-center">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Type To Search</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Type to Search">
+                <mat-icon matSuffix color="primary">search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-2 justify-content-center">
+            <button mat-raised-button color="primary" (click)="download()" >
+                <!-- <mat-icon>save_alt</mat-icon> -->
+                downlode
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10 justify-content-center">
+            <div *ngIf="openTable">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                    <!-- Checkbox Column -->
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <!-- sr_no Column -->
+                    <ng-container matColumnDef="sr_no">
+                        <th mat-header-cell *matHeaderCellDef> SR No. </th>
+                        <td mat-cell *matCellDef="let element"> {{element.sr_no}} </td>
+                    </ng-container>
+                    <!-- account_id Column -->
+                    <ng-container matColumnDef="account_id">
+                        <th mat-header-cell *matHeaderCellDef> Account ID </th>
+                        <td mat-cell *matCellDef="let element"> {{element.account_id}} </td>
+                    </ng-container>
+                    <!-- account_code Column -->
+                    <ng-container matColumnDef="account_code">
+                        <th mat-header-cell *matHeaderCellDef> Account Code </th>
+                        <td mat-cell *matCellDef="let element"> {{element.account_code}} </td>
+                    </ng-container>
+                    <!-- platform_id Column -->
+                    <ng-container matColumnDef="platform_id">
+                        <th mat-header-cell *matHeaderCellDef> Platform ID </th>
+                        <td mat-cell *matCellDef="let element"> {{element.platform_id}} </td>
+                    </ng-container>
+                    <!-- platform Column -->
+                    <ng-container matColumnDef="platform">
+                        <th mat-header-cell *matHeaderCellDef> Platform </th>
+                        <td mat-cell *matCellDef="let element"> {{element.platform}} </td>
+                    </ng-container>
+                    <!-- platform_name Column -->
+                    <ng-container matColumnDef="platform_name">
+                        <th mat-header-cell *matHeaderCellDef> Platform Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.platform_name}} </td>
+                    </ng-container>
+                    <!-- customer_id Column -->
+                    <ng-container matColumnDef="customer_id">
+                        <th mat-header-cell *matHeaderCellDef> Customer ID </th>
+                        <td mat-cell *matCellDef="let element"> {{element.customer_id}} </td>
+                    </ng-container>
+                    <!-- api_key Column -->
+                    <ng-container matColumnDef="api_key">
+                        <th mat-header-cell *matHeaderCellDef> API Key </th>
+                        <td mat-cell *matCellDef="let element"> {{element.api_key}} </td>
+                    </ng-container>
+                    <!-- sushi_url Column -->
+                    <ng-container matColumnDef="sushi_url">
+                        <th mat-header-cell *matHeaderCellDef> Sushi URL </th>
+                        <td mat-cell *matCellDef="let element"> {{element.sushi_url}} </td>
+                    </ng-container>
+                    <!-- requestor_id Column -->
+                    <ng-container matColumnDef="requestor_id">
+                        <th mat-header-cell *matHeaderCellDef> Requestor ID </th>
+                        <td mat-cell *matCellDef="let element"> {{element.requestor_id}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+                    </tr>
+
+                </table>
+
+            </div>
+            <mat-card>
+
+                <!-- Date Picker -->
+
+
+            </mat-card>
+        </div>
+
+
+        <div class="col-sm-2" style="width: 100%;">
+            <mat-card>
+                <div style="font-size: 16px; color: red;">
+                    processing
+                </div>
+                <br>
+                <div style="font-size: 12px; color: rgb(44, 71, 148);">
+                    Account:
+                </div>
+                <div style="font-size: 12px; color: rgb(108, 9, 121);">
+                    Platform:
+                </div>
+                <div style="font-size: 12px; color: rgb(119, 112, 17);">
+                    Report:
+                </div>
+                <div style="font-size: 12px; color: rgb(114, 15, 69);">
+                    file:
+                </div>
+                <div style="font-size: 12px; color: rgb(37, 53, 97);">
+                    Size(MB):
+                </div>
+            </mat-card>
+            <br>
+            <mat-card>
+                <div style="font-size: 16px; color: red;">
+                    Application Statistics
+                </div><br>
+                <div style="font-size: 12px; color: rgb(37, 53, 97);">
+                    processed Files:
+                </div>
+                <div style="font-size: 12px; color: rgb(5, 82, 95);">
+                    Success Files:
+                </div>
+                <div style="font-size: 12px; color: rgb(100, 91, 11);">
+                    Error Files:
+                </div>
+                <div style="font-size: 12px; color: rgb(126, 54, 241);">
+                    Overrited:
+                </div>
+                <div style="font-size: 12px; color: rgb(43, 58, 54);">
+                    Data Download(MB):
+                </div>
+            </mat-card>
+            <br>
+            <mat-card>
+                <div style="font-size: 16px; color: red;">
+                    Operators
+                </div><br>
+                <button mat-raised-button color="primary" (click)="openTableFun()">Open</button>
+
+                <button mat-raised-button color="primary" (click)="closeTableFun()" style="float: right;">Close</button><br><br>
+                <button mat-raised-button color="primary" (click)="harvesting()">Harvest</button><br>
+            </mat-card>
+            <br>
+        </div>
+    </div>
+
+</div>
